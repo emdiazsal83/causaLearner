@@ -1,0 +1,109 @@
+---
+title: "get Markov Equivalent Class"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Obtaining the Markov equivalence class using pcalg
+
+A quick document to check if my version of R and pcalg (or other dependencies) is causing a problem. First I create a non-collider 1->2->3 dag structure and a collider structure 1->2<-3. 
+
+```{r dag}
+library(pcalg)
+
+p <- 3
+# non-collider
+(dag_NC_mat <- matrix(c(0,0,0,1,0,0,0,1,0),p,p))
+dag_NC <- as(dag_NC_mat, "graphNEL")
+# collider
+(dag_C_mat <- matrix(c(0,0,0,1,0,1,0,0,0),p,p))
+dag_C <- as(dag_C_mat, "graphNEL")
+```
+
+
+Lets look at the graphs:
+
+```{r plotDagNC, echo=TRUE}
+plot(dag_NC)
+```
+
+```{r plotDagC, echo=TRUE}
+plot(dag_C)
+```
+
+Obtain cpdags corresponding to this generating dags, and then obtain all generated dags corresponding to cpdags. 
+
+```{r cpdag}
+cpdag_NC <- dag2cpdag(dag_NC)
+cpdag_C <- dag2cpdag(dag_C)
+```
+
+Lets plot the cpdags. 
+
+```{r plotcpagNC, echo=TRUE}
+plot(cpdag_NC)
+```
+
+```{r plotcpdagC, echo=TRUE}
+plot(cpdag_C)
+```
+
+Convert to matrices, obtain markov equivalent dags from each.
+
+```{r cpdagMat}
+# non-collider
+cpdag_NC_Mat <- as(cpdag_NC, "matrix")
+(dags_NC_Mat <- pdag2allDags(t(cpdag_NC_Mat))$dags)
+dags_NC_aMat_1 <- matrix(dags_NC_Mat[1,],p,p,byrow=T)
+dags_NC_aMat_2 <- matrix(dags_NC_Mat[2,],p,p,byrow=T)
+dags_NC_aMat_3 <- matrix(dags_NC_Mat[3,],p,p,byrow=T)
+# collider
+cpdag_C_Mat <- as(cpdag_C, "matrix")
+(dags_C_Mat <- pdag2allDags(t(cpdag_C_Mat))$dags)
+dags_C_aMat_1 <- matrix(dags_C_Mat[1,],p,p,byrow=T)
+```
+
+As is specified in ?pdag2allDags pdag2allDags returns an adjacency of type "amat.cpdag"
+which as is specified in ?amatType is coded so that mat[a,b]=0, mat[b,a]=1 implies a->b, 
+so that "from" of arrow is in columns and "to" in rows. This means we have to transpose 
+before converting to graph.
+
+```{r dags_NC}
+# non-collider
+dags_NC_1 <- as(t(dags_NC_aMat_1),"graphNEL")
+dags_NC_2 <- as(t(dags_NC_aMat_2),"graphNEL")
+dags_NC_3 <- as(t(dags_NC_aMat_3),"graphNEL")
+# collider
+dags_C_1 <- as(t(dags_C_aMat_1),"graphNEL")
+```
+
+Lets plot non-collider generated dags. 
+
+```{r plotDagNC_1, echo=TRUE}
+plot(dags_NC_1)
+```
+
+```{r plotDagNC_2, echo=TRUE}
+plot(dags_NC_2)
+``` 
+
+```{r plotDagNC_3, echo=TRUE}
+plot(dags_NC_3)
+```
+
+This is fine! Now lets plot collider generated dags.
+
+```{r plotDag_C1, echo=TRUE}
+plot(dags_C_1)
+```
+
+The collider structure was converted into a non-collider structure in the process. 
+
+This code, using the following packages, is returning a v-structure as one of the dags belonging to a Markov Equivalence class that was generated from a non-v-structure. 
+
+```{r sessionInfo}
+sessionInfo()
+```

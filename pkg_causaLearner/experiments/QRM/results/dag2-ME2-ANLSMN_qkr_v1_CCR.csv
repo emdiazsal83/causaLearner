@@ -1,0 +1,11 @@
+,data,hypSc,logLik,pvalHSIC,SME_KDP,SME_MaxEnt1,timeLearn
+1,AN,norm.kqr2_ho_red,0.6,0.22,0.67,0.81,0.68
+2,AN,norm.kqr2_re_red,0.46,0.29,0.67,0.82,0.79
+3,AN-s,norm.kqr2_ho_red,0.66,0.35,0.63,0.67,0.76
+4,AN-s,norm.kqr2_re_red,0.66,0.2,0.64,0.66,0.85
+5,LS,norm.kqr2_ho_red,0.4,0.24,0.43,0.69,0.57
+6,LS,norm.kqr2_re_red,0.36,0.28,0.4,0.68,0.42
+7,LS-s,norm.kqr2_ho_red,0.68,0.28,0.64,0.78,0.32
+8,LS-s,norm.kqr2_re_red,0.66,0.09,0.63,0.75,0.17
+9,MN-U,norm.kqr2_ho_red,0.67,0.4,0.88,0.89,0.96
+10,MN-U,norm.kqr2_re_red,0.67,0.48,0.83,0.88,0.96

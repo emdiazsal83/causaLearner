@@ -1,0 +1,9 @@
+"","data","hypSc","logLik","pvalHSIC","SME_KDP","SME_MaxEnt1","timeLearn"
+"1","SIM","norm.kqr2_ho_red",0.54,0.58,0.58,0.56,0.62
+"2","SIM","norm.kqr2_re_red",0.52,0.75,0.58,0.55,0.63
+"3","SIMc","norm.kqr2_ho_red",0.47,0.66,0.52,0.51,0.57
+"4","SIMc","norm.kqr2_re_red",0.49,0.71,0.52,0.51,0.68
+"5","SIMG","norm.kqr2_ho_red",0.45,0.64,0.45,0.55,0.57
+"6","SIMG","norm.kqr2_re_red",0.4,0.59,0.49,0.51,0.61
+"7","SIMln","norm.kqr2_ho_red",0.36,0.61,0.45,0.58,0.63
+"8","SIMln","norm.kqr2_re_red",0.34,0.71,0.47,0.58,0.69
